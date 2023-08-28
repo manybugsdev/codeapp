@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <link rel="shortcut icon" href="icon.svg" type="image/x-icon" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CODE - どんな願いも叶えるアプリ</title>
+    <meta property="og:title" content="CODE - どんな願いも叶えるアプリ" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="icon.svg" />
+    <style>
+      * {
+        font-family: sans-serif;
+        box-sizing: border-box;
+        font-weight: bold;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      main.app {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        height: 0;
+        min-height: 100dvh;
+        width: 100%;
+        padding: 0 1rem;
+        background-color: black;
+        color: lightgreen;
+        overflow: hidden;
+      }
+      main.app.ok {
+        transition: all;
+        transition-duration: 1s;
+        background-color: lightgreen;
+        color: black;
+      }
+      h1.title {
+        transform: scale(2, 1);
+      }
+      svg.logo {
+        width: 100%;
+        max-width: 300px;
+        aspect-ratio: 1/1;
+      }
+      svg.logo.rotate {
+        animation: rotate 3s linear;
+      }
+      svg.logo.zoom {
+        position: absolute;
+        animation: zoom 1s linear forwards;
+      }
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes zoom {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(50);
+          opacity: 0;
+          display: none;
+        }
+      }
+      form {
+        width: 100%;
+        max-width: 300px;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+      }
+      textarea {
+        width: 100%;
+        text-align: center;
+        font-size: large;
+        background-color: lightgreen;
+        color: black;
+        border: none;
+        resize: none;
+        border-radius: 0.4rem;
+      }
+      p.text {
+        font-size: xx-large;
+      }
+      input[type="submit"] {
+        background-color: transparent;
+        border: 1px solid lightgreen;
+        border-radius: 9999px;
+        font-size: xx-large;
+        padding: 0.4rem;
+        width: 100%;
+        margin-top: 2rem;
+        cursor: pointer;
+        color: lightgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import { h, Component, render, Fragment } from "https://esm.sh/preact";
+      import { useState, useEffect } from "https://esm.sh/preact/hooks";
+      import clsx from "https://esm.sh/clsx";
+
+      const Logo = ({ className }) => {
+        const n = 100;
+        return h(
+          "svg",
+          {
+            class: clsx("logo", className),
+            viewBox: "-24,-24,48,48",
+          },
+          h(
+            "g",
+            { id: "one" },
+            new Array(n).fill(0).map((_, i) =>
+              h(
+                "circle",
+                {
+                  width: 2.5,
+                  height: 2.5,
+                  r: 1.5,
+                  fill: "lightgreen",
+                  opacity: 1 - i / 30,
+                },
+                h("animateMotion", {
+                  begin: i / 30 + "s",
+                  dur: "1.6s",
+                  repeatCount: "indefinite",
+                  path: "M0,0L3,-3.5L0,-8H-5.5L0,-22L6,-4Z",
+                })
+              )
+            )
+          ),
+          h("use", { href: "#one", transform: "rotate(72)" }),
+          h("use", { href: "#one", transform: "rotate(144)" }),
+          h("use", { href: "#one", transform: "rotate(216)" }),
+          h("use", { href: "#one", transform: "rotate(288)" })
+        );
+      };
+
+      const App = () => {
+        const [scene, setScene] = useState(0);
+        useEffect(() => {
+          switch (scene) {
+            case 0:
+              setTimeout(() => setScene(1), 2000);
+              break;
+            case 1:
+              setTimeout(() => setScene(2), 3000);
+              break;
+            case 3:
+              setTimeout(() => setScene(4), 3000);
+              break;
+          }
+        }, [scene]);
+        return h(
+          "main",
+          { class: clsx("app", { ok: scene === 4 }) },
+          scene === 0 && h("h1", { class: "title" }, "CODE"),
+          scene === 1 && h(Logo),
+          scene === 2 &&
+            h(
+              "form",
+              {
+                onSubmit: (e) => {
+                  e.preventDefault();
+                  setScene(3);
+                },
+              },
+              h("p", { class: "text" }, "願い事を入力"),
+              h("textarea", {}),
+              h("input", { type: "submit", value: "決定" })
+            ),
+          scene === 3 &&
+            h(
+              Fragment,
+              {},
+              h("p", { class: "text" }, "確認中"),
+              h(Logo, { className: "rotate" })
+            ),
+          scene === 4 &&
+            h(
+              Fragment,
+              {},
+              h(Logo, { className: "zoom" }),
+              h("p", { class: "text" }, "承認"),
+              h(
+                "p",
+                {},
+                "※勝手に作った非公式アプリです。願い事は叶わないし任務も制裁もありません。友達に共有して遊んでください。"
+              ),
+              h(
+                "ul",
+                {},
+                h(
+                  "li",
+                  {},
+                  h("a", { href: "https://www.ytv.co.jp/code/" }, "元ネタ")
+                ),
+                h(
+                  "li",
+                  {},
+                  h(
+                    "a",
+                    { href: "https://github.com/manybugsdev/codeapp" },
+                    "ソースコード"
+                  )
+                ),
+                h("li", {}, h("a", { href: "/" }, "もう一度"))
+              )
+            )
+        );
+      };
+
+      render(h(App), document.body);
+    </script>
+  </body>
+</html>
