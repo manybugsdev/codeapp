@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-24,-24,48,48">
     <rect x='-24' y='-24' width="48" height="48" />
-    <path id="one" d="M0,0L3,-3.5L0,-8H-5.5L0,-22L6,-4Z" stroke="lightgreen" stroke-width="2"  fill="none" stroke-linejoin="round" />
-    <use href="#one" transform="rotate(72)" />
-    <use href="#one" transform="rotate(144)" />
-    <use href="#one" transform="rotate(216)" />
-    <use href="#one" transform="rotate(288)" />
+    <path d="M0,0L3,-3.5L0,-8H-5.5L0,-22L6,-4Z" stroke="lightgreen" stroke-width="2"  fill="none" stroke-linejoin="round" />
+    <path transform="rotate(72)" d="M0,0L3,-3.5L0,-8H-5.5L0,-22L6,-4Z" stroke="lightgreen" stroke-width="2"  fill="none" stroke-linejoin="round" />
+    <path transform="rotate(144)" d="M0,0L3,-3.5L0,-8H-5.5L0,-22L6,-4Z" stroke="lightgreen" stroke-width="2"  fill="none" stroke-linejoin="round" />
+    <path transform="rotate(216)" d="M0,0L3,-3.5L0,-8H-5.5L0,-22L6,-4Z" stroke="lightgreen" stroke-width="2"  fill="none" stroke-linejoin="round" />
+    <path transform="rotate(288)" d="M0,0L3,-3.5L0,-8H-5.5L0,-22L6,-4Z" stroke="lightgreen" stroke-width="2"  fill="none" stroke-linejoin="round" />
 </svg>
